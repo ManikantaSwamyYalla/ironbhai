@@ -223,22 +223,22 @@ const Contact: React.FC = () => {
     {
       icon: Phone,
       title: "Call Us",
-      content: "(555) 123-4567",
+      content: "+91 8688206969",
       description: "Mon-Sat 7AM-9PM, Sun 9AM-6PM",
       color: "from-green-500 to-emerald-600"
     },
     {
       icon: Mail,
       title: "Email Us", 
-      content: "info@ironbhai.com",
+      content: "support@ironbhai.com",
       description: "We'll respond within 2 hours",
       color: "from-blue-500 to-blue-600"
     },
     {
       icon: MapPin,
-      title: "Visit Us",
-      content: "123 Clean Street, Fresh City",
-      description: "Free pickup & delivery available",
+      title: "Branch Location",
+      content: " Ameerpet | Manikonda | Kukatpally",
+      description: "Pickup & Delivery Available",
       color: "from-purple-500 to-purple-600"
     },
     {
@@ -429,7 +429,7 @@ const Contact: React.FC = () => {
               
               <div className="mt-6 p-4 bg-gradient-to-r from-green-100 to-emerald-100 rounded-xl border border-green-200">
                 <p className="text-green-800 font-medium text-center">
-                  🚚 Free pickup & delivery available within 5km radius
+                  🚚 Pickup & Delivery Available
                 </p>
               </div>
             </div>
@@ -473,7 +473,7 @@ const Contact: React.FC = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button className="bg-white text-blue-600 px-8 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-colors flex items-center justify-center gap-2">
               <Phone className="w-5 h-5" />
-              Call Now: (555) 123-4567
+              Call Now: +91 8688206969
             </button>
             <button className="bg-white/20 backdrop-blur-sm text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/30 transition-colors">
               Schedule Pickup

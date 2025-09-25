@@ -402,7 +402,7 @@ const Cart: React.FC = () => {
                 </div>
                 
                 {/* Day Selection */}
-                <div className="flex overflow-x-auto pb-2 gap-3 mb-6">
+                {/* <div className="flex overflow-x-auto pb-2 gap-3 mb-6">
                   {Object.values(pickupSlots).map((day) => {
                     const today = new Date().toISOString().split('T')[0];
                     return (
@@ -416,6 +416,38 @@ const Cart: React.FC = () => {
                         }`}
                       >
                         <div className="font-bold">{day.day}</div>
+                        <div className="text-sm">{day.date}</div>
+                      </button>
+                    );
+                  })}
+                </div> */}
+                  <div className="flex overflow-x-auto pb-2 gap-3 mb-6">
+                  {Object.values(pickupSlots).map((day) => {
+                     // Create abbreviated day names
+                    const abbreviateDay = (fullDay: string) => {
+                      const abbreviations: Record<string, string> = {
+                        'Sunday': 'Sun',
+                        'Monday': 'Mon',
+                        'Tuesday': 'Tue',
+                        'Wednesday': 'Wed',
+                        'Thursday': 'Thu',
+                        'Friday': 'Fri',
+                        'Saturday': 'Sat'
+                      };
+                      return abbreviations[fullDay] || fullDay.substring(0, 3);
+                    };
+                    return (
+                      <button
+                        key={day.date}
+                        onClick={() => setSelectedSlot({ dayDate: day.date, slotId: -1 })}
+                        className={`flex-shrink-0 px-4 py-3 rounded-xl font-medium transition-all duration-200 ${
+                          selectedSlot?.dayDate === day.date 
+                            ? 'bg-purple-600 text-white shadow-lg' 
+                            : 'bg-white text-gray-800 hover:bg-gray-50'
+                        }`}
+                      >
+                        {/* <div className="font-bold">{day.weekday}</div> */}
+                        <div className="font-bold">{abbreviateDay(day.weekday)}</div>
                         <div className="text-sm">{day.date}</div>
                       </button>
                     );

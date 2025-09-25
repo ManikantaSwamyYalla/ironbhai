@@ -424,8 +424,9 @@ const Footer: React.FC = () => {
         <div className="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
           <p>{config.copyright}</p>
           <div className="flex space-x-6 mt-2 md:mt-0">
-            <a href={config.links.privacy_policy || "#"} className="hover:text-blue-400">Privacy Policy</a>
-            <a href={config.links.terms_condition || "#"} className="hover:text-blue-400">Terms</a>
+            <a href="/privacy-policy" className="hover:text-blue-400">Privacy Policy</a>
+             <a href="/refund-policy" className="hover:text-blue-400">Refund Policy</a>
+            <a href="/terms-conditions" className="hover:text-blue-400">Terms & Conditions</a>
           </div>
         </div>
       </div>

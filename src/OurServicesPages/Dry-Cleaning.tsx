@@ -326,17 +326,19 @@ type Product = {
   category_id: number;
   priority: number;
 };
+// Add the SelectedProduct type
+type SelectedProduct = Product & { quantity: number | '' };
 
 const DryCleaning: React.FC = () => {
   const navigate = useNavigate();
   const [categories, setCategories] = useState<Category[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
-  const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
+  // Update the type of selectedProducts state
+  const [selectedProducts, setSelectedProducts] = useState<SelectedProduct[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { addToCart } = useCart();
-
   // Fetch Dry Cleaning service details
   useEffect(() => {
     const fetchDryCleaningDetails = async () => {
@@ -391,25 +393,56 @@ const DryCleaning: React.FC = () => {
     ? products.filter(product => product.category_id === selectedCategory)
     : [];
 
+    // Add incrementQuantity function
+  const incrementQuantity = (productId: number) => {
+    setSelectedProducts(prev => 
+      prev.map(p => 
+        p.id === productId ? { ...p, quantity: p.quantity === '' ? 1 : (p.quantity as number) + 1 } : p
+      )
+    );
+  };
+
+  // Add decrementQuantity function
+  const decrementQuantity = (productId: number) => {
+    setSelectedProducts(prev => 
+      prev.map(p => {
+        if (p.id === productId) {
+          if (p.quantity === '' || p.quantity <= 1) {
+            return { ...p, quantity: 1 };
+          }
+          return { ...p, quantity: (p.quantity as number) - 1 };
+        }
+        return p;
+      })
+    );
+  };
+
+  // Update handleProductToggle function
   const handleProductToggle = (product: Product) => {
     setSelectedProducts(prev => {
       if (prev.some(p => p.id === product.id)) {
         return prev.filter(p => p.id !== product.id);
       } else {
-        return [...prev, product];
+        // Add product with initial quantity of 1
+        return [...prev, { ...product, quantity: 1 }];
       }
     });
   };
 
+  // Update handleAddToCart function
   const handleAddToCart = () => {
     selectedProducts.forEach(product => {
-      addToCart(product);
+      // Add the product multiple times based on quantity
+      const quantity = product.quantity === '' ? 1 : product.quantity;
+      for (let i = 0; i < quantity; i++) {
+        addToCart(product);
+      }
     });
     setSelectedProducts([]);
     navigate("/cart");
   };
 
-  const goBack = () => {
+   const goBack = () => {
     navigate("/services");
   };
 
@@ -586,60 +619,127 @@ const DryCleaning: React.FC = () => {
               <p className="text-gray-600 text-lg">Please select a category above to view available products</p>
             </div>
           ) : filteredProducts.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredProducts.map((product) => {
-                const isSelected = selectedProducts.some(p => p.id === product.id);
-                const savings = parseFloat(product.mrp) - parseFloat(product.sale);
-                
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {filteredProducts.map((product) => {
+        const selectedProduct = selectedProducts.find(p => p.id === product.id);
+        const isSelected = !!selectedProduct;
+        const quantity = selectedProduct ? selectedProduct.quantity : 0;
+        const savings = parseFloat(product.mrp) - parseFloat(product.sale);
+        
                 return (
                   <div 
-                    key={product.id} 
-                    className={`border-2 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl ${
-                      isSelected 
-                        ? 'border-green-500 bg-green-50 shadow-lg' 
-                        : 'border-gray-200 bg-white hover:border-purple-300'
-                    }`}
-                  >
-                    <div className="flex justify-between items-start mb-4">
-                      <div className="flex-1">
-                        <h3 className="text-xl font-bold text-gray-900 mb-2">{product.name}</h3>
-                        <div className="flex items-center space-x-2 mb-3">
-                          <Crown className="w-4 h-4 text-purple-400" />
-                          <span className="text-sm text-gray-600">Premium Service</span>
-                        </div>
-                      </div>
-                      {isSelected && (
-                        <div className="bg-green-500 text-white p-2 rounded-full">
-                          <CheckCircle className="w-5 h-5" />
-                        </div>
-                      )}
-                    </div>
-                    
-                    <div className="space-y-3 mb-6">
-                      <div className="flex justify-between items-center">
-                        <span className="text-gray-500 line-through text-sm">₹{product.mrp}</span>
-                        <span className="text-2xl font-bold text-purple-600">₹{product.sale}</span>
-                      </div>
-                      <div className="bg-orange-100 text-orange-800 text-xs font-bold px-3 py-1 rounded-full w-fit">
-                        Save ₹{savings.toFixed(0)}
-                      </div>
-                    </div>
-                    
-                    <button 
-                      onClick={() => handleProductToggle(product)}
-                      className={`w-full py-3 px-6 rounded-xl font-bold transition-all duration-300 transform hover:scale-105 ${
-                        isSelected
-                          ? 'bg-green-500 text-white shadow-lg'
-                          : 'bg-gradient-to-r from-purple-500 to-indigo-600 text-white hover:shadow-lg'
-                      }`}
-                    >
-                      {isSelected ? 'Selected ✓' : 'Select Item'}
-                    </button>
-                  </div>
-                );
-              })}
+            key={product.id} 
+            className={`border-2 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl ${
+              isSelected 
+                ? 'border-green-500 bg-green-50 shadow-lg' 
+                : 'border-gray-200 bg-white hover:border-purple-300'
+            }`}
+          >
+            <div className="flex justify-between items-start mb-4">
+              <div className="flex-1">
+                <h3 className="text-xl font-bold text-gray-900 mb-2">{product.name}</h3>
+                <div className="flex items-center space-x-2 mb-3">
+                  <Crown className="w-4 h-4 text-purple-400" />
+                  <span className="text-sm text-gray-600">Premium Service</span>
+                </div>
+              </div>
+              {isSelected && (
+                <div className="bg-green-500 text-white p-2 rounded-full">
+                  <CheckCircle className="w-5 h-5" />
+                </div>
+              )}
             </div>
-          ) : (
+            
+            <div className="space-y-3 mb-6">
+              <div className="flex justify-between items-center">
+                <span className="text-gray-500 line-through text-sm">₹{product.mrp}</span>
+                <span className="text-2xl font-bold text-purple-600">₹{product.sale}</span>
+              </div>
+              <div className="bg-orange-100 text-orange-800 text-xs font-bold px-3 py-1 rounded-full w-fit">
+                Save ₹{savings.toFixed(0)}
+              </div>
+            </div>
+            
+            {isSelected ? (
+              <div className="space-y-3">
+                <div className="flex items-center justify-between bg-white rounded-xl p-3 border border-gray-200">
+                  <button 
+                    onClick={() => decrementQuantity(product.id)}
+                    className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-colors"
+                    disabled={quantity === ''}
+                  >
+                    <span className="text-xl font-bold">-</span>
+                  </button>
+                  
+                  <input
+                    type="number"
+                    min="1"
+                    value={quantity || ''}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      if (value === '') {
+                        // Allow empty input
+                        setSelectedProducts(prev => 
+                          prev.map(p => 
+                            p.id === product.id ? { ...p, quantity: '' as any } : p
+                          )
+                        );
+                      } else {
+                        const newQuantity = parseInt(value);
+                        if (!isNaN(newQuantity) && newQuantity >= 1) {
+                          setSelectedProducts(prev => 
+                            prev.map(p => 
+                              p.id === product.id ? { ...p, quantity: newQuantity } : p
+                            )
+                          );
+                        }
+                      }
+                    }}
+                    onBlur={(e) => {
+                      // If input is empty or invalid, set to 1
+                      const value = e.target.value;
+                      if (value === '' || parseInt(value) < 1 || isNaN(parseInt(value))) {
+                        setSelectedProducts(prev => 
+                          prev.map(p => 
+                            p.id === product.id ? { ...p, quantity: 1 } : p
+                          )
+                        );
+                      }
+                    }}
+                    className="w-16 text-center border-none outline-none font-bold text-gray-900"
+                  />
+                  
+                  <button 
+                    onClick={() => incrementQuantity(product.id)}
+                    className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-colors"
+                  >
+                    <span className="text-xl font-bold">+</span>
+                  </button>
+                </div>
+                <button 
+                  onClick={() => handleProductToggle(product)}
+                  className="w-full py-3 px-6 rounded-xl font-bold transition-all duration-300 transform hover:scale-105 bg-red-500 text-white hover:shadow-lg"
+                >
+                  Unselect Item
+                </button>
+              </div>
+            ) : (
+              <button 
+                onClick={() => handleProductToggle(product)}
+                className={`w-full py-3 px-6 rounded-xl font-bold transition-all duration-300 transform hover:scale-105 ${
+                  isSelected
+                    ? 'bg-green-500 text-white shadow-lg'
+                    : 'bg-gradient-to-r from-purple-500 to-indigo-600 text-white hover:shadow-lg'
+                }`}
+              >
+                {isSelected ? 'Selected ✓' : 'Select Item'}
+              </button>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  ) : (
             <div className="text-center py-16">
               <div className="bg-gray-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
                 <Award className="w-10 h-10 text-gray-400" />
