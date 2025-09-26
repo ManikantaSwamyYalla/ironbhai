@@ -476,7 +476,7 @@ const Contact: React.FC = () => {
               Call Now: +91 8688206969
             </button>
             <button className="bg-white/20 backdrop-blur-sm text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/30 transition-colors">
-              Schedule Pickup
+              Book Order
             </button>
           </div>
         </div>

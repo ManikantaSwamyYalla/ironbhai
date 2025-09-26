@@ -340,12 +340,12 @@ const Footer: React.FC = () => {
           <div>
             <h4 className="text-xl font-bold mb-6">Our Services</h4>
             <ul className="space-y-3">
-              <li><a href="#" className="text-gray-300 hover:text-blue-400">Dry Cleaning</a></li>
-              <li><a href="#" className="text-gray-300 hover:text-blue-400">Wash & Fold</a></li>
-              <li><a href="#" className="text-gray-300 hover:text-blue-400">Steam Press</a></li>
-              <li><a href="#" className="text-gray-300 hover:text-blue-400">Stain Removal</a></li>
-              <li><a href="#" className="text-gray-300 hover:text-blue-400">Alterations</a></li>
-              <li><a href="#" className="text-gray-300 hover:text-blue-400">Wedding Dress Care</a></li>
+                <li><a href="/dry-cleaning" className="text-gray-300 hover:text-blue-400">Dry Cleaning</a></li>
+              <li><a href="/wash-fold" className="text-gray-300 hover:text-blue-400">Wash & Fold</a></li>
+              <li><a href="/steam-iron" className="text-gray-300 hover:text-blue-400">Steam Iron</a></li>
+              <li><a href="/wash-iron" className="text-gray-300 hover:text-blue-400">wash Iron</a></li>
+              <li><a href="/saree-rolling" className="text-gray-300 hover:text-blue-400">Saree Rolling</a></li>
+              <li><a href="/saree-drapping" className="text-gray-300 hover:text-blue-400">Saree Drapping</a></li>
             </ul>
           </div>
 
@@ -353,15 +353,16 @@ const Footer: React.FC = () => {
           <div>
             <h4 className="text-xl font-bold mb-6">Quick Links</h4>
             <ul className="space-y-3">
-              <li><a href={config.links.about_us || "#"} className="text-gray-300 hover:text-blue-400">About Us</a></li>
-              <li><a href={config.links.faq || "#"} className="text-gray-300 hover:text-blue-400">FAQ</a></li>
-              <li><a href={config.links.terms_condition || "#"} className="text-gray-300 hover:text-blue-400">Terms</a></li>
-              <li><a href={config.links.privacy_policy || "#"} className="text-gray-300 hover:text-blue-400">Privacy</a></li>
+              <li><a href="/about" className="hover:text-blue-400">About Us</a></li>
+              <li><a href="/faq" className="text-gray-300 hover:text-blue-400">FAQ</a></li>
+              <li><a href="/terms-conditions" className="hover:text-blue-400">Terms & Conditions</a></li>
+              <li><a href="/privacy-policy" className="hover:text-blue-400">Privacy Policy</a></li>
+              <li><a href="/refund-policy" className="hover:text-blue-400">Refund Policy</a></li>
             </ul>
           </div>
 
           {/* Contact Info */}
-          <div>
+          {/* <div>
             <h4 className="text-xl font-bold mb-6">Contact Us</h4>
             <div className="space-y-4">
               <div className="flex items-center space-x-3">
@@ -371,6 +372,29 @@ const Footer: React.FC = () => {
               <div className="flex items-center space-x-3">
                 <Mail size={18} className="text-blue-400" />
                 <span className="text-gray-300">{config.contact_us.email}</span>
+              </div>
+              {config.contact_us.address && (
+                <div className="flex items-start space-x-3">
+                  <MapPin size={18} className="text-blue-400 mt-1" />
+                  <span className="text-gray-300">{config.contact_us.address}</span>
+                </div>
+              )}
+            </div>
+          </div> */}
+          <div>
+            <h4 className="text-xl font-bold mb-6">Contact Us</h4>
+            <div className="space-y-4">
+              <div className="flex items-center space-x-3">
+                <Phone size={18} className="text-blue-400" />
+                <a href={`tel:${config.contact_us.phone}`} className="text-gray-300 hover:text-blue-400">
+                  {config.contact_us.phone}
+                </a>
+              </div>
+              <div className="flex items-center space-x-3">
+                <Mail size={18} className="text-blue-400" />
+                <a href={`mailto:${config.contact_us.email}?subject=Contact from Website&body=Hello, I would like to get in touch.`} className="text-gray-300 hover:text-blue-400">
+                     {config.contact_us.email}
+                </a>
               </div>
               {config.contact_us.address && (
                 <div className="flex items-start space-x-3">

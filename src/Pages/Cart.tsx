@@ -570,7 +570,7 @@ const Cart: React.FC = () => {
 
                     <div className="grid grid-cols-1 gap-3">
                       {[
-                        { icon: <Truck className="w-4 h-4" />, text: "Free pickup & delivery" },
+                        { icon: <Truck className="w-4 h-4" />, text: "Pickup & Delivery" },
                         { icon: <Sparkles className="w-4 h-4" />, text: "Professional care guaranteed" },
                         { icon: <Shield className="w-4 h-4" />, text: "100% satisfaction promise" }
                       ].map((benefit, index) => (

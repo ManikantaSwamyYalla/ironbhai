@@ -13,11 +13,11 @@ const Header: React.FC = () => {
             <div className="flex items-center space-x-6">
               <div className="flex items-center space-x-2">
                 <Phone size={14} />
-                <span>(555) 123-4567</span>
+                <span>+91 8688206969</span>
               </div>
               <div className="hidden md:flex items-center space-x-2">
                 <MapPin size={14} />
-                <span>123 Clean Street, Fresh City</span>
+                <span>Ameerpet | Manikonda | Kukatpally</span>
               </div>
               <div className="hidden md:flex items-center space-x-2">
                 <Clock size={14} />
@@ -60,7 +60,7 @@ const Header: React.FC = () => {
             {/* CTA Button */}
             <div className="flex items-center space-x-4">
               <button className="hidden md:block bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-2 rounded-full hover:from-blue-700 hover:to-blue-800 transition-all duration-300 transform hover:scale-105 shadow-lg">
-                Schedule Pickup
+                BOOK ORDER
               </button>
               <button className="lg:hidden p-2 text-gray-700 hover:text-blue-600">
                 <Menu size={24} />

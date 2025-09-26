@@ -37,7 +37,7 @@ const Pricing: React.FC = () => {
         "Eco-Friendly Products",
         "6-Hour Turnaround",
         "Stain Removal",
-        "Free Pickup & Delivery"
+        "Pickup & Delivery"
       ]
     }
   ];

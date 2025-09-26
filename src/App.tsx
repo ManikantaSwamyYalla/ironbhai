@@ -20,6 +20,7 @@ import Home from './components/Home';
 import PrivacyPolicy from './Policies/PrivacyPolicy';
 import TermsConditions from './Policies/TermsConditions';
 import RefundPolicy from './Policies/RefundPolicy';
+import FAQ from './Policies/FAQ';
 
 
 function App() {
@@ -52,6 +53,7 @@ function App() {
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-conditions" element={<TermsConditions />} />
           <Route path="/refund-policy" element={<RefundPolicy />} />
+          <Route path="/faq" element={<FAQ />} />
         </Routes>
 
       </main>

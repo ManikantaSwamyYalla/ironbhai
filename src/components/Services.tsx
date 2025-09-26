@@ -816,7 +816,7 @@ const Services: React.FC = () => {
                       <CheckCircle className="w-8 h-8 text-white" />
                     </div>
                     <div>
-                      <h3 className="text-xl font-bold text-white">Free Pickup & Delivery</h3>
+                      <h3 className="text-xl font-bold text-white">Pickup & Delivery</h3>
                       <p className="text-blue-200">Convenient doorstep service</p>
                     </div>
                   </div>
@@ -926,7 +926,7 @@ const Services: React.FC = () => {
                   </div>
                   <div className="flex items-center text-sm text-gray-600">
                     <Truck className="w-4 h-4 text-blue-500 mr-2" />
-                    <span>Free pickup & delivery</span>
+                    <span>Pickup & Delivery</span>
                   </div>
                   <div className="flex items-center text-sm text-gray-600">
                     <Clock className="w-4 h-4 text-purple-500 mr-2" />
@@ -959,7 +959,7 @@ const Services: React.FC = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 px-8 rounded-full text-lg shadow-xl transform hover:scale-105 transition-all duration-300">
-                Schedule Pickup
+                Book Order
               </button>
               <button className="border-2 border-white text-white hover:bg-white hover:text-blue-900 font-bold py-4 px-8 rounded-full text-lg transition-all duration-300 flex items-center justify-center space-x-2">
                 <MapPin className="w-5 h-5" />
@@ -1110,7 +1110,7 @@ const Services: React.FC = () => {
                         <div className="bg-blue-100 p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
                           <Truck className="w-8 h-8 text-blue-600" />
                         </div>
-                        <h4 className="font-bold text-gray-900 mb-2">Free Pickup & Delivery</h4>
+                        <h4 className="font-bold text-gray-900 mb-2">Pickup & Delivery</h4>
                         <p className="text-gray-600 text-sm">Convenient doorstep service</p>
                       </div>
                       <div className="text-center">
